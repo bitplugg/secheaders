@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "secheaders"
+version = "1.0.0"
+description = "Python client for SecHeaders API — Web Security Toolkit"
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.8"
+dependencies = ["httpx>=0.24"]
+
+[project.urls]
+Homepage = "https://github.com/bitplugg/secheaders-sdk"

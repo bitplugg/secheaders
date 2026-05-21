@@ -8,6 +8,8 @@ import { ThemeToggle } from '@/components/ThemeToggle'
 import { ToastProvider } from '@/components/Toast'
 import { BackToTop } from '@/components/BackToTop'
 import { I18nProvider, LangToggle } from '@/components/I18nProvider'
+import { AuthButton } from '@/components/AuthButton'
+import { SessionProvider } from 'next-auth/react'
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -46,17 +48,14 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
 
-  useEffect(() => {
-    const saved = localStorage.getItem('theme')
-    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches))
-      document.documentElement.classList.add('dark')
-  }, [])
-
   useEffect(() => { document.body.style.overflow = mobileOpen ? 'hidden' : ''; return () => { document.body.style.overflow = '' } }, [mobileOpen])
 
   return (
     <html lang="ru" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}})()`
+        }} />
         <title>SecHeaders — Web Security Toolkit</title>
         <meta name="description" content="Набор инструментов для анализа безопасности веб-сайтов." />
         <link rel="manifest" href="/manifest.json" />
@@ -65,6 +64,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-full flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <ToastProvider>
+          <SessionProvider>
           <I18nProvider>
           <header className="glass sticky top-0 z-50">
             <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
@@ -81,6 +81,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                 ))}
                 <ThemeToggle />
                 <LangToggle />
+                <AuthButton />
               </nav>
               <div className="flex lg:hidden items-center gap-2">
                 <ThemeToggle />
@@ -110,6 +111,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <p>{NAV.length} инструментов • Все на Edge Runtime • Готов к деплою на Vercel</p>
           </footer>
           </I18nProvider>
+          </SessionProvider>
         </ToastProvider>
       </body>
     </html>
