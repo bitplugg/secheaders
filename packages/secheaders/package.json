@@ -1,0 +1,26 @@
+{
+  "name": "secheaders",
+  "version": "1.0.0",
+  "description": "Node.js SDK for SecHeaders — Web Security Toolkit API",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["security", "headers", "hsts", "csp", "ssl", "tls", "dns", "cors", "scanner"],
+  "license": "MIT",
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  }
+}
