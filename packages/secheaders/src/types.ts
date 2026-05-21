@@ -312,3 +312,20 @@ export interface ApiResponse<T> {
   data?: T
   error?: string
 }
+
+/** Monitor entry */
+export interface MonitorEntry {
+  url: string
+  status: 'ok' | 'warn' | 'error'
+  grade: string
+  responseTime: number
+  checkedAt: string
+  error?: string
+}
+
+/** Monitor result */
+export interface MonitorResult {
+  results: MonitorEntry[]
+  summary: { ok: number; warn: number; error: number; total: number }
+  timestamp: number
+}

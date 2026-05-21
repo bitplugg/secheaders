@@ -7,6 +7,7 @@ import "./globals.css";
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { ToastProvider } from '@/components/Toast'
 import { BackToTop } from '@/components/BackToTop'
+import { I18nProvider, LangToggle } from '@/components/I18nProvider'
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -14,6 +15,8 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 const NAV = [
   { href: '/', label: 'Home' },
   { href: '/tools', label: 'Tools' },
+  { href: '/monitor', label: 'Monitor' },
+  { href: '/report', label: 'Report' },
   { href: '/batch', label: 'Batch' }, { href: '/compare', label: 'Compare' },
   { href: '/mixed', label: 'Mixed' }, { href: '/redirects', label: 'Redirects' }, { href: '/gzip', label: 'GZIP' },
   { href: '/csp', label: 'CSP' }, { href: '/csp-eval', label: 'CSP Eval' },
@@ -35,7 +38,8 @@ const NAV = [
   { href: '/jwt', label: 'JWT' }, { href: '/well-known', label: '.well-known' },
   { href: '/history', label: 'History' }, { href: '/history-chart', label: 'Chart' },
   { href: '/pretty', label: 'Pretty' }, { href: '/encode', label: 'Encode' },
-  { href: '/hash', label: 'Hash' }, { href: '/docs', label: 'API' },
+  { href: '/hash', label: 'Hash' }, { href: '/api-docs', label: 'API' },
+  { href: '/docs', label: 'Legacy API' },
 ]
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -61,6 +65,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="min-h-full flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
         <ToastProvider>
+          <I18nProvider>
           <header className="glass sticky top-0 z-50">
             <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
               <a href="/" className="font-bold text-lg tracking-tight shrink-0 flex items-center gap-2">
@@ -75,6 +80,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                   </a>
                 ))}
                 <ThemeToggle />
+                <LangToggle />
               </nav>
               <div className="flex lg:hidden items-center gap-2">
                 <ThemeToggle />
@@ -103,6 +109,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <p className="font-medium text-sm mb-1">SecHeaders — Web Security Toolkit</p>
             <p>{NAV.length} инструментов • Все на Edge Runtime • Готов к деплою на Vercel</p>
           </footer>
+          </I18nProvider>
         </ToastProvider>
       </body>
     </html>

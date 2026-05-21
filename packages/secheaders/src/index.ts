@@ -31,12 +31,13 @@ import type {
   JwtResult,
   PrettyResult,
   PingResult,
+  MonitorResult,
 } from './types'
 
 export class SecHeaders {
   private baseUrl: string
 
-  constructor(baseUrl = 'https://secheaders.vercel.app') {
+  constructor(baseUrl = 'https://zxc-r1spclf9a-bitplugg.vercel.app') {
     this.baseUrl = baseUrl.replace(/\/+$/, '')
   }
 
@@ -200,5 +201,10 @@ export class SecHeaders {
   /** Ping / reachability check */
   ping(url: string): Promise<PingResult> {
     return request<PingResult>(this.baseUrl, '/api/ping', { url })
+  }
+
+  /** Monitor multiple URLs */
+  monitor(urls: string[]): Promise<MonitorResult> {
+    return request<MonitorResult>(this.baseUrl, '/api/monitor', { urls: urls.join(',') })
   }
 }
